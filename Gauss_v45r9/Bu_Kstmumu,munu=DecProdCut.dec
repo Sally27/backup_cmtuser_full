@@ -1,0 +1,46 @@
+# 
+#
+# EventType: 12513060
+#
+# Descriptor: [B+ -> mu+ mu- (K*+ -> mu+ nu_mu)]cc
+#
+# NickName: Bu_Kstmumu,munu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+#from Gauss.Configuration import *
+#from Configurables import LHCb__ParticlePropertySvc as ParticlePropertySvc
+#from Configurables import Gauss, PrintMCTree, PrintMCDecayTreeTool, HistogramPersistencySvc, NTupleSvc, DumpHepMCDecay, DumpHepMCTree, GaussMonitor__CheckLifeTimeHepMC, GaussMonitor__CheckLifeTimeMC, GiGa, GiGaPhysListModular, GiGaHiggsParticles, GenerationToSimulation, PythiaProduction
+#
+#
+#
+#ParticlePropertySvc().Particles = [ "K*(892)+     38      323  1.0    80.835    1.0000e-10      K*(892)+   323   2.085" ]
+#ApplicationMgr().ExtSvc    += [ ParticlePropertySvc() ]
+#
+#
+#
+# Documentation: Kst+ forced to mu+ nu_mu
+# EndDocumentation
+#
+# PhysicsWG: RD
+# Tested: Yes
+# Responsible: Slavomira Stefkova
+# Email: s.stefkova14@imperial.ac.uk
+# Date: 20150408
+#
+Alias      MyKst+    K*+
+Alias      MyKst-    K*-
+ChargeConj MyKst+    MyKst-
+#
+Decay B+sig
+  1.000        MyKst+     mu+     mu-     BTOSLLBALL;
+Enddecay
+CDecay B-sig
+#
+Decay MyKst+
+  1.000        mu+      nu_mu             PHSP;
+Enddecay
+CDecay MyKst-
+#
+End
+#

@@ -1,0 +1,46 @@
+# 
+#
+# EventType: 12513060
+#
+# Descriptor: [B+ -> mu+ mu- (K*+ -> mu+ nu_mu)]cc
+#
+# NickName: Bu_Kstmumu,munu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+#
+#
+#
+#
+# Documentation: Kst+ forced to mu+ nu_mu
+# EndDocumentation
+#
+# PhysicsWG: RD
+# Tested: Yes
+# Responsible: Slavomira Stefkova
+# Email: s.stefkova14@imperial.ac.uk
+# Date: 20150408
+#
+Alias      MyKst+    Higgs0
+Alias      MyKst-    Higgs'0
+ChargeConj MyKst+    MyKst+
+ChargeConj MyKst-    MyKst-
+#
+Decay B+sig
+1.000        MyKst+     mu+     mu-     BTOSLLBALL;
+Enddecay
+Decay B-sig
+1.000        MyKst-     mu+     mu-     BTOSLLBALL;
+Enddecay
+#
+Decay MyKst+
+1.000        mu+      nu_mu             PHSP;
+Enddecay
+Decay MyKst-
+1.000        mu-      nu_mu             PHSP;
+Enddecay
+#
+#
+End
+#
+#

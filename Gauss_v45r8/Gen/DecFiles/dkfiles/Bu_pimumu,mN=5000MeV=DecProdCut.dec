@@ -1,0 +1,35 @@
+# EventType: 12113057
+#
+# Descriptor: [B+ -> mu+ (N-> mu+ pi-) {,gamma}{,gamma}]cc
+#
+# NickName: Bu_pimumu,mN=5000MeV=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+# ParticleValue: "N 1235 19 0.0 5.0 0 N 19 0.0","anti-N 1236 -19 0.0 5.0 0 anti-N -19 0.0"
+#
+# Documentation: Decay file for B+-> Pi mu Mu
+# EndDocumentation
+#
+# PhysicsWG: RD
+# Tested: Yes
+# Responsible:   Wenbin Qian
+# Email: wenbin.qian@cern.ch
+# Date: 20111024
+#
+Alias        MyN        N
+Alias        Myanti-N   anti-N
+ChargeConj   MyN        Myanti-N
+
+Decay B+sig
+  1.     mu+    MyN    PHSP;
+Enddecay
+CDecay B-sig
+#
+Decay MyN
+  1.     mu+    pi-       PHSP;
+Enddecay
+CDecay Myanti-N
+#
+End
+#
+

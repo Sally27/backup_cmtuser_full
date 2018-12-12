@@ -1,0 +1,52 @@
+# 
+#
+# EventType: 12513061
+#
+# Descriptor: [B+ -> mu+ mu- (K*+ -> mu+ nu_mu)]cc
+#
+# NickName: Bu_Kstmumu,munu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+# 
+# InsertPythonCode:
+# from Gauss.Configuration import *
+# from Configurables import LHCb__ParticlePropertySvc as ParticlePropertySvc
+# from Configurables import Gauss, PrintMCTree, PrintMCDecayTreeTool, HistogramPersistencySvc, NTupleSvc, DumpHepMCDecay, DumpHepMCTree, GaussMonitor__CheckLifeTimeHepMC, GaussMonitor__CheckLifeTimeMC, GiGa, GiGaPhysListModular, GiGaHiggsParticles, GenerationToSimulation, PythiaProduction
+#
+#
+#
+# ParticlePropertySvc().Particles = [ "H_10     87      25  1.0  0.89166    1.295693e-26      Higgs0   25   2.085"]
+#
+# ApplicationMgr().ExtSvc    += [ ParticlePropertySvc() ]
+# gigaHiggsPart = GiGaHiggsParticles()
+# gigaHiggsPart.Higgses = ["H_10"]
+# GiGaPhysListModular("ModularPL").PhysicsConstructors += [ gigaHiggsPart ]
+#
+# EndInsertPythonCode
+# 
+#
+# Documentation: Kst+ forced to mu+ nu_mu
+# EndDocumentation
+#
+# PhysicsWG: RD
+# Tested: Yes
+# Responsible: Slavomira Stefkova
+# Email: s.stefkova14@imperial.ac.uk
+# Date: 20150408
+# CPUTime: <1min
+#
+Alias      MyKst    Higgs0
+
+#ChargeConj MyKst+    MyKst-
+#
+Decay B+sig
+  1.000        MyKst     mu+     mu-     BTOSLLBALL;
+Enddecay
+
+#
+Decay MyKst
+  1.000        mu+      nu_mu             PHSP;
+Enddecay
+#
+End
+#

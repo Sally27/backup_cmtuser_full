@@ -1,0 +1,57 @@
+
+# EventType: 12513070
+#
+# Descriptor: [B+ -> mu+ mu- (Higgs+ -> mu+ nu_mu)]cc
+#
+# NickName: Bu_Higgsmumu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+# 
+# InsertPythonCode:
+# from Gauss.Configuration import *
+# from Configurables import LHCb__ParticlePropertySvc as ParticlePropertySvc
+# from Configurables import Gauss, PrintMCTree, PrintMCDecayTreeTool, HistogramPersistencySvc, NTupleSvc, DumpHepMCDecay, DumpHepMCTree, GaussMonitor__CheckLifeTimeHepMC, GaussMonitor__CheckLifeTimeMC, GiGa, GiGaPhysListModular, GiGaHiggsParticles, GenerationToSimulation, PythiaProduction
+#
+#
+#
+# ParticlePropertySvc().Particles = ["H_10     87  25  1.0  0.1    1.295693e-26      Higgs0   25   2.085",
+#                                    "H_20     88  35  -1.0  0.1    1.295693e-26      Higgs'0   35   2.085"]
+#
+#
+# ApplicationMgr().ExtSvc    += [ ParticlePropertySvc() ]
+# gigaHiggsPart = GiGaHiggsParticles()
+# gigaHiggsPart.Higgses = ["H_10","H_20"]
+# GiGaPhysListModular("ModularPL").PhysicsConstructors += [ gigaHiggsPart ]
+#
+# EndInsertPythonCode
+# 
+#
+# Documentation: Higgses forced to mu+ nu_mu
+# EndDocumentation
+#
+# PhysicsWG: RD
+# Tested: Yes
+# Responsible: Slavomira Stefkova
+# Email: s.stefkova14@imperial.ac.uk
+# Date: 20150408
+# CPUTime: <1min
+#
+Alias      MyKst+    Higgs0
+Alias      MyKst-    Higgs'0
+#
+Decay B+sig
+1.000        MyKst+     mu+     mu-     BTOSLLBALL;
+Enddecay
+Decay B-sig
+1.000        MyKst-     mu+     mu-     BTOSLLBALL;
+Enddecay
+#
+Decay MyKst+
+1.000        mu+      nu_mu             PHSP;
+Enddecay
+Decay MyKst-
+1.000        mu-      anti-nu_mu             PHSP;
+Enddecay
+#
+End
+#

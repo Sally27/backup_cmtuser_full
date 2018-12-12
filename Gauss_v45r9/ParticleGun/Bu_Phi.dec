@@ -1,0 +1,37 @@
+# 
+#
+# EventType: 12513060
+#
+# Descriptor: [B+ -> mu+ mu- (K*+ -> mu+ nu_mu)]cc
+#
+# NickName: Bu_Kstmumu,munu=DecProdCut
+#
+# Cuts: DaughtersInLHCb
+#
+#
+#
+#
+#
+# Documentation: Kst+ forced to mu+ nu_mu
+# EndDocumentation
+#
+# PhysicsWG: RD
+# Tested: Yes
+# Responsible: Slavomira Stefkova
+# Email: s.stefkova14@imperial.ac.uk
+# Date: 20150408
+#
+Alias      MyPhi     rho0
+ChargeConj MyPhi     MyPhi
+#
+Decay B+
+  1.000        MyPhi     mu+     nu_mu     ISGW2;
+Enddecay
+CDecay B-
+#
+Decay MyPhi
+  1.000        mu+      mu-       VLL;
+Enddecay
+#
+End
+#

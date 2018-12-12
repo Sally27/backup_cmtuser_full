@@ -1,0 +1,84 @@
+
+import os, sys
+__path__ = [d for d in [os.path.join(d, 'StrippingArchive/Stripping24') for d in sys.path if d]
+            if (d.startswith('/home/hep/ss4314/cmtuser/DaVinciDev_v38r1p1/build.x86_64-slc6-gcc49-opt') or
+                d.startswith('/home/hep/ss4314/cmtuser/DaVinciDev_v38r1p1')) and
+               (os.path.exists(d) or 'python.zip' in d)]
+"""
+Module with stripping selection line builder modules.
+All line builders available via function lineBuilders().
+"""
+
+__author__ = 'Juan Palacios palacios@physik.uzh.ch'
+
+import os
+
+## Define the version of the archive
+strippingVersion = 'Stripping24'
+_strippingModules = {}
+WGs = []
+## Note that with the new structure you have to import the single WG modules
+wgDirs = os.listdir(os.environ['STRIPPINGARCHIVEROOT']+'/python/StrippingArchive/'+strippingVersion)
+for dirs in [ dir for dir in wgDirs if 'Stripping' in dir ]:
+  WGs.append(dirs[9:])
+
+for WG in WGs:
+  _tmpModule = __import__('StrippingArchive.'+strippingVersion+'.Stripping'+WG,fromlist=['_strippingModules'])
+  _strippingModules[WG] = _tmpModule._strippingModules
+
+from StrippingUtils.Utils import getLineBuildersFromModule as _getter
+from StrippingUtils.Utils import getBuilderConfFromModule as _getcon
+
+def lineBuilders(WGs = None) :
+    """
+    Return all the line builders in the module for a
+    requested list of WG.
+    """
+    _lineBuilders = {}
+    if not WGs:
+      for wg in _strippingModules.keys():
+        for _sm in _strippingModules[wg]:
+          _lineBuilders.update(_getter(_sm))
+    elif any( WG for WG in _strippingModules.keys() if WG in WGs ):
+      for wg in WGs:
+        for _sm in _strippingModules[wg]:
+          _lineBuilders.update(_getter(_sm))
+    else:
+      raise Exception( 'The requested WG does not exists' )
+
+    return dict(_lineBuilders)
+
+
+def buildersConf(WGs = None) :
+    """
+    Return all the line builders in the module for a
+    requested list of WG.
+    """
+    _buildersConf = {}
+    if not WGs:
+      for wg in _strippingModules.keys():
+        for _sm in _strippingModules[wg]:
+          duplicates=list(set(_buildersConf.keys()) & set(_getcon(_sm).keys()) )
+          if not duplicates:
+            _buildersConf.update(_getcon(_sm))
+          else:
+            print "The following names have already been used:"
+            print ', '.join(duplicates)
+            print "Please change the name of your configuration"
+            sys.exit(1)
+    elif any( WG for WG in _strippingModules.keys() if WG in WGs ):
+      for wg in WGs:
+        for _sm in _strippingModules[wg]:
+          duplicates=list(set(_buildersConf.keys()) & set(_getcon(_sm).keys()) )
+          if not duplicates:
+            _buildersConf.update(_getcon(_sm))
+          else:
+            print "The following names have already been used:"
+            print ', '.join(duplicates)
+            print "Please change the name of your configuration"
+            sys.exit(1)
+    else:
+      raise Exception( 'The requested WG does not exists' )
+
+    return dict(_buildersConf)
+
